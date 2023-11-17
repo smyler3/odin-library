@@ -21,13 +21,13 @@ function addBookToLibrary(book) {
 
 // Loops through each book and displays on the page
 function displayBooks() {
-    const container = document.querySelector(".container");
-    console.log(container);
+    const books = document.querySelector(".books");
+    console.log(books);
 
     // Creates a book card for each book
     for (let book of myLibrary) {
         let bookCard = createBookCard(book); 
-        container.appendChild(bookCard);
+        books.appendChild(bookCard);
     }
 }
 
@@ -36,10 +36,14 @@ function createBookCard(book) {
     let card = document.createElement("span");
 
     // Styling
-    card.classList.add('book-card');
+    card.classList.add("book-card");
+
+    let spine = document.createElement("span");
+    spine.classList.add("book-spine");
 
     // Adding text content
     let title = document.createElement("h2");
+    title.classList.add("title");
     title.textContent = book.title;
 
     let author = document.createElement("h4");
@@ -47,6 +51,7 @@ function createBookCard(book) {
     author.textContent = book.author;
 
     // Storing within card
+    card.appendChild(spine);
     card.appendChild(title);
     card.appendChild(author);
 
