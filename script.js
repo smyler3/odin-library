@@ -10,7 +10,7 @@ function Book(title, author, pages, read) {
 }
 
 // Returns a string explaining the book information
-Book.prototype.info() = function() {
+Book.prototype.info = function() {
     return (title + " by " + author + ", " + pages + " pages, " + (read ? "already read" : "not yet read"));
 }
 
@@ -21,9 +21,36 @@ function addBookToLibrary(book) {
 
 // Loops through each book and displays on the page
 function displayBooks() {
-    for (let book in myLibrary) {
+    const container = document.querySelector(".container");
+    console.log(container);
 
+    // Creates a book card for each book
+    for (let book of myLibrary) {
+        let bookCard = createBookCard(book); 
+        container.appendChild(bookCard);
     }
+}
+
+// Creates and styles the book cards to be displayed on screen
+function createBookCard(book) {
+    let card = document.createElement("span");
+
+    // Styling
+    card.classList.add('book-card');
+
+    // Adding text content
+    let title = document.createElement("h2");
+    title.textContent = book.title;
+
+    let author = document.createElement("h4");
+    author.classList.add("author");
+    author.textContent = book.author;
+
+    // Storing within card
+    card.appendChild(title);
+    card.appendChild(author);
+
+    return card;
 }
 
 const theRingSetsOut = new Book("The Ring Sets Out", "J.R.R Tolkien", 1168, true);
@@ -33,3 +60,5 @@ const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, false);
 addBookToLibrary(theRingSetsOut);
 addBookToLibrary(theRingGoesSouth);
 addBookToLibrary(theHobbit);
+
+displayBooks();
