@@ -1,6 +1,17 @@
 // Library collection
 const myLibrary = [];
 
+// Creates event listeners for interacting with the new book modal
+function createModalEventListeners() {
+    const addBookModal = document.querySelector("#new-book-modal");
+    const showBookModalButton = document.querySelector("#show-book-modal")
+    const closeBookModalButton = document.querySelector("#close-book-modal")
+
+    showBookModalButton.addEventListener("click", () => {
+        addBookModal.showModal();
+    });
+}
+
 // Object representing a book
 function Book(title, author, pages, read) {
     this.title = title;
@@ -57,6 +68,8 @@ function createBookCard(book) {
 
     return card;
 }
+
+createModalEventListeners();
 
 const theRingSetsOut = new Book("The Ring Sets Out", "J.R.R Tolkien", 1168, true);
 const theRingGoesSouth = new Book("The Ring Goes South", "J.R.R Tolkien", 253, false);

@@ -8,10 +8,37 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
+    <dialog id="new-book-modal">
+        <form id="new-book-form">
+            <h1>Add Book Details</h1>
+            <div class="form-fields">
+                <div class="text-field form-field">
+                    <label for="book-title">Title</label>
+                    <input id="book-title" name="title" type="text" required>
+                </div>
+                <div class="text-field form-field">
+                    <label for="book-author">Author</label>
+                    <input id="book-author" name="author" type="text" required>
+                </div>
+                <div class="text-field form-field">
+                    <label for="book-pages">Number of Pages</label>
+                    <input id="book-pages" name="pages" type="number" min="1" required>
+                </div>
+                <div class="check-field form-field">
+                    <label for="book-read">Have you read the book?</label>
+                    <input id="book-read" name="read" type="checkbox" required>
+                </div>
+            </div>
+            <div class="submission-buttons">
+                <button id="close-book-modal" class="modal-button">Cancel</button>
+                <button id="submit-new-book" class="modal-button">Add Book</button>
+            </div>
+        </form>
+    </dialog>
     <div class="container">
         <div class="books">
         </div>
-        <button class="add-book-button">Add a book</button>
+        <button id="show-book-modal" class="add-book-btn">Add New Book to Collection</button>
     </div>
 </body>
 </html>
