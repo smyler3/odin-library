@@ -8,6 +8,7 @@
     <script src="./script.js" defer></script>
 </head>
 <body>
+    <!-- New book modal only sometimes appearing -->
     <dialog id="new-book-modal">
         <form id="new-book-form">
             <h1>Add Book Details</h1>
@@ -35,10 +36,23 @@
             </div>
         </form>
     </dialog>
+
     <div class="container">
-        <div class="books">
+        <div class="colour-legend">
+            <span class="colour-legend-block">
+                <h4>Books you've read:</h4>
+                <div class="colour-display read-colour"></div>
+            </span>
+            <span class="colour-legend-block">
+                <h4>Books you haven't:</h4>
+                <div class="colour-display unread-colour"></div>
+            </span>
         </div>
-        <button id="show-book-modal" class="add-book-btn">Add New Book to Collection</button>
+        <div class="book-container">
+            <div class="books">
+            </div>
+            <button id="show-book-modal" class="add-book-btn">Add New Book to Collection</button>
+        </div>
     </div>
 </body>
 </html>

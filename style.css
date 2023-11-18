@@ -12,6 +12,7 @@
 }
 
 button {
+    appearance: none;
     cursor: pointer;
 }
 
@@ -30,8 +31,46 @@ body {
 }
 
 .container {
+    grid-template-rows: auto 1fr;
+}
+
+.book-container {
     display: grid;
     grid: 1fr 50px / 1fr;
+}
+
+/*
+ * --------------------------------------------------------------------------------------------
+ * Colour Legend Styling
+ * --------------------------------------------------------------------------------------------
+ */
+
+.colour-legend {
+    display: grid;
+    grid-template-columns: repeat(2, 200px);
+    justify-content: center;
+} 
+
+.colour-legend-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.colour-display {
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+    border: 2px solid #000000;
+    background-color: red;
+}
+
+.read-colour {
+    background-color: royalblue;
+}
+
+.unread-colour {
+    background-color: rosybrown;
 }
 
 /*
@@ -92,11 +131,16 @@ body {
 .add-book-btn,
 .modal-button {
     border-radius: 25px;
+    border: 2px solid #000000;
     font-size: large;
     font-weight: 500;
     box-shadow: 0 10px 15px #00000020;
     color: #000000;
     background-color: #ffffff;
+}
+.add-book-btn:hover,
+.modal-button:hover {
+    background-color: rgb(240, 240, 240);
 }
 
 /*
@@ -108,9 +152,6 @@ body {
 .add-book-btn {
     margin: 0 auto;
     padding: 10px 40px;
-}
-.add-book-btn:hover {
-    background-color: rgb(240, 240, 240);
 }
 
 /*

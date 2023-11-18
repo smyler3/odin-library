@@ -1,4 +1,6 @@
 const MIN_PAGE_NUMBER = 1;
+const READ_BOOK = "rgb(65, 105, 225)";
+const UNREAD_BOOK = "rgb(188, 143, 143)";
 
 /* Creates event listeners for interacting with the new book modal */
 function createModalEventListeners() {
@@ -142,6 +144,8 @@ function createBookCard(book) {
     deleteBtn.classList.add("deleteBtn");
     title.classList.add("title");
     author.classList.add("author");
+    // Styles based on read status
+    spine.style.backgroundColor = (book.read ? READ_BOOK : UNREAD_BOOK);
 
     // Storing within card
     card.appendChild(spine);
@@ -160,7 +164,7 @@ const myLibrary = [];
 
 // Create Library Collection
 addBookToLibrary(new Book("The Ring Sets Out", "J.R.R Tolkien", 1168, true));
-addBookToLibrary(new Book("The Ring Goes South", "J.R.R Tolkien", 253, false));
+addBookToLibrary(new Book("The Ring Goes South", "J.R.R Tolkien", 253, true));
 addBookToLibrary(new Book("The Hobbit", "J.R.R Tolkien", 295, false));
 
 // Display on page
