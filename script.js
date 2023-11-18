@@ -79,6 +79,7 @@ function Book(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
     this.rendered = false;
+    this.index = undefined;
 }
 
 /* Returns a string explaining the book information */
@@ -88,7 +89,9 @@ Book.prototype.info = function() {
 
 /* Adds a book to the library */
 function addBookToLibrary(book) {
+    book.index = myLibrary.length;
     myLibrary.push(book);
+    console.log(book.index, book);
 }
 
 /* Loops through each book and displays on the page */
@@ -114,21 +117,31 @@ function displayBooks() {
 /* Creates and styles the book cards to be displayed on screen */
 function createBookCard(book) {
     let card = document.createElement("span");
+    let spine = document.createElement("span");
+    let title = document.createElement("h2");
+    let author = document.createElement("h4");
+
+    // Attaching index position
+    card.setAttribute("data-index", book.index);
+
+    // Adding text content
+    title.textContent = book.title;
+    author.textContent = book.author;
+
+    // Adding remove button
+    let deleteBtn = document.createElement("img");
+
+    deleteBtn.src = "./icons/delete.svg";
+    deleteBtn.title = "Delete";
+    deleteBtn.alt = "Remove Button";
+    spine.appendChild(deleteBtn);
 
     // Styling
     card.classList.add("book-card");
-
-    let spine = document.createElement("span");
     spine.classList.add("book-spine");
-
-    // Adding text content
-    let title = document.createElement("h2");
+    deleteBtn.classList.add("deleteBtn");
     title.classList.add("title");
-    title.textContent = book.title;
-
-    let author = document.createElement("h4");
     author.classList.add("author");
-    author.textContent = book.author;
 
     // Storing within card
     card.appendChild(spine);

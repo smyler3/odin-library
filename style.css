@@ -63,9 +63,14 @@ body {
 
 .book-spine {
     grid-area: 1 / 1 / -1 / 2;
-    background-color: crimson;
+    padding: 15px 5px 0 0;
+    background-color: royalblue;
     border-top-left-radius: 19px;
     border-bottom-left-radius: 19px;
+}
+
+.deleteBtn {
+    cursor: pointer;
 }
 
 .title {
