@@ -1,6 +1,6 @@
 const MIN_PAGE_NUMBER = 1;
-const READ_BOOK = "rgb(65, 105, 225)";
-const UNREAD_BOOK = "rgb(188, 143, 143)";
+const INIT_READ_COLOUR = "#4169E1";
+const INIT_UNREAD_COLOUR = "#BC8F8F";
 
 /* Creates event listeners for interacting with the new book modal */
 function createModalEventListeners() {
@@ -23,10 +23,10 @@ function createModalEventListeners() {
     // Check form on submission, clear it, and close modal
     newBookForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        let title = document.getElementById("book-title");
-        let author = document.getElementById("book-author");
-        let pages = document.getElementById("book-pages");
-        let read = document.getElementById("book-read");
+        const title = document.getElementById("book-title");
+        const author = document.getElementById("book-author");
+        const pages = document.getElementById("book-pages");
+        const read = document.getElementById("book-read");
         console.log(title.value, author.value, pages.value, read.value);
 
         // Book doesn't meet criteria
@@ -55,9 +55,9 @@ function createModalEventListeners() {
 
 function resetBookForm() {
     const newBookForm = document.querySelector("#new-book-form");
-    let title = document.getElementById("book-title");
-    let author = document.getElementById("book-author");
-    let pages = document.getElementById("book-pages");
+    const title = document.getElementById("book-title");
+    const author = document.getElementById("book-author");
+    const pages = document.getElementById("book-pages");
 
     // Removing error indicators
     title.classList.remove("error-field");
@@ -65,6 +65,32 @@ function resetBookForm() {
     pages.classList.remove("error-field");
     // Clearing form
     newBookForm.reset();
+}
+
+function createColourEventListeners() {
+    const newReadColour = document.querySelector("#read-colour");
+    const newUnreadColour = document.querySelector("#unread-colour");
+
+    // Set new read book colour indicator and recolour all books
+    newReadColour.addEventListener("change", () => {
+        console.log("Hello");
+        console.log(newReadColour.value);
+        colourSpines(newReadColour, readColour);
+        readColour = newReadColour;
+    })
+
+    // Set new unread book colour indicator and recolour all books
+    newUnreadColour.addEventListener("change", () => {
+        console.log("Hello");
+        console.log(newUnreadColour.value);
+        colourSpines(newUnreadColour, unreadColour);
+        unreadColour = newUnreadColour;
+    })
+}
+
+function colourSpines(newColour, oldColour) {
+    const spines = document.querySelectorAll(".book-spine");
+    // Iterate through list, check if it has old colour, if it does change to the new colour
 }
 
 // Sets the minimum page number for books in the library
@@ -109,7 +135,7 @@ function displayBooks() {
         }
         // Book yet to be displayed
         else {
-            let bookCard = createBookCard(book); 
+            const bookCard = createBookCard(book); 
             books.appendChild(bookCard);
             book.rendered = true;
         }
@@ -118,10 +144,10 @@ function displayBooks() {
 
 /* Creates and styles the book cards to be displayed on screen */
 function createBookCard(book) {
-    let card = document.createElement("span");
-    let spine = document.createElement("span");
-    let title = document.createElement("h2");
-    let author = document.createElement("h4");
+    const card = document.createElement("span");
+    const spine = document.createElement("span");
+    const title = document.createElement("h2");
+    const author = document.createElement("h4");
 
     // Attaching index position
     card.setAttribute("data-index", book.index);
@@ -131,7 +157,7 @@ function createBookCard(book) {
     author.textContent = book.author;
 
     // Adding remove button
-    let deleteBtn = document.createElement("img");
+    const deleteBtn = document.createElement("img");
 
     deleteBtn.src = "./icons/delete.svg";
     deleteBtn.title = "Delete";
@@ -156,7 +182,10 @@ function createBookCard(book) {
 }
 
 // Setup Functions
+let readColour = INIT_READ_COLOUR;
+let unreadColour = INIT_UNREAD_COLOUR;
 createModalEventListeners();
+createColourEventListeners();
 setMinPages();
 
 // Initial Data

@@ -31,7 +31,10 @@ body {
 }
 
 .container {
+    display: grid;
     grid-template-rows: auto 1fr;
+    justify-items: center;
+    padding-top: 20px;
 }
 
 .book-container {
@@ -45,32 +48,33 @@ body {
  * --------------------------------------------------------------------------------------------
  */
 
-.colour-legend {
+.colour-legend-card {
     display: grid;
     grid-template-columns: repeat(2, 200px);
-    justify-content: center;
+    justify-items: center;
+    align-self: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 10px 15px #00000020;
 } 
 
-.colour-legend-block {
+.colour-legend {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border: 2px solid #00000020;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
 }
 
-.colour-display {
+input[type="color"] {
     height: 30px;
     width: 150px;
-    border-radius: 10px;
-    border: 2px solid #000000;
-    background-color: red;
-}
-
-.read-colour {
-    background-color: royalblue;
-}
-
-.unread-colour {
-    background-color: rosybrown;
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
 }
 
 /*
