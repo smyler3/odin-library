@@ -1,6 +1,7 @@
 const MIN_PAGE_NUMBER = 1;
 const INIT_READ_COLOUR = "#4169E1";
 const INIT_UNREAD_COLOUR = "#BC8F8F";
+const INDEX_PREFIX = "Book-";
 
 /* Creates event listeners for interacting with the new book modal */
 function createModalEventListeners() {
@@ -107,7 +108,7 @@ function Book(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
     this.rendered = false;
-    this.index = undefined;
+    this.index = bookCount++;
 }
 
 /* Returns a string explaining the book information */
@@ -142,6 +143,23 @@ function displayBooks() {
     }
 }
 
+// Deletes a selected book from the library
+function deleteBook(index) {
+    const idString = INDEX_PREFIX + index;
+    const book = document.getElementById(idString);
+
+    // Searching for book
+    for (let i in myLibrary) {
+        if (myLibrary[i].index === index) {
+            // Re-rendering page
+            myLibrary.splice(i, i);
+            book.remove();
+            displayBooks();
+            return;
+        }
+    }
+}
+
 /* Creates and styles the book cards to be displayed on screen */
 function createBookCard(book) {
     const card = document.createElement("span");
@@ -150,7 +168,7 @@ function createBookCard(book) {
     const author = document.createElement("h4");
 
     // Attaching index position
-    card.setAttribute("data-index", book.index);
+    card.setAttribute("id", INDEX_PREFIX + book.index);
 
     // Adding text content
     title.textContent = book.title;
@@ -159,10 +177,17 @@ function createBookCard(book) {
     // Adding remove button
     const deleteBtn = document.createElement("img");
 
+    deleteBtn.setAttribute("data-index", book.index);
     deleteBtn.src = "./icons/delete.svg";
     deleteBtn.title = "Delete";
     deleteBtn.alt = "Remove Button";
     spine.appendChild(deleteBtn);
+
+    // Set's attached book for removal
+    deleteBtn.addEventListener("click", () => {
+        console.log(typeof deleteBtn.getAttribute("data-index"));
+        deleteBook(parseInt(deleteBtn.getAttribute("data-index")));
+    })
 
     // Styling
     card.classList.add("book-card");
@@ -171,7 +196,7 @@ function createBookCard(book) {
     title.classList.add("title");
     author.classList.add("author");
     // Styles based on read status
-    spine.style.backgroundColor = (book.read ? READ_BOOK : UNREAD_BOOK);
+    spine.style.backgroundColor = (book.read ? readColour : unreadColour);
 
     // Storing within card
     card.appendChild(spine);
@@ -187,6 +212,7 @@ let unreadColour = INIT_UNREAD_COLOUR;
 createModalEventListeners();
 createColourEventListeners();
 setMinPages();
+let bookCount = 0;
 
 // Initial Data
 const myLibrary = [];
