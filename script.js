@@ -187,10 +187,25 @@ function createBookCard(book) {
         deleteBook(parseInt(deleteBtn.getAttribute("data-index")));
     })
 
+    // Adding read status button
+    const readToggleBtn = document.createElement("img");
+
+    readToggleBtn.setAttribute("data-index", book.index);
+    readToggleBtn.src = "./icons/read.svg";
+    readToggleBtn.title = "Toggle Read Status";
+    readToggleBtn.alt = "Toggle Read Button";
+    spine.appendChild(readToggleBtn);
+
+    // Toggles book's read status
+    readToggleBtn.addEventListener("click", (e) => {
+        console.log(e.target);
+    })
+
     // Styling
     card.classList.add("book-card");
     spine.classList.add("book-spine");
-    deleteBtn.classList.add("deleteBtn");
+    deleteBtn.classList.add("spineBtn");
+    readToggleBtn.classList.add("spineBtn");
     title.classList.add("title");
     author.classList.add("author");
     // Styles based on read status

@@ -112,8 +112,9 @@ input[type="color"] {
     border-bottom-left-radius: 19px;
 }
 
-.deleteBtn {
+.spineBtn:hover {
     cursor: pointer;
+    background-color: #00000030;
 }
 
 .title {
