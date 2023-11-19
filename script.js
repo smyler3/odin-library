@@ -28,7 +28,6 @@ function createModalEventListeners() {
         const author = document.getElementById("book-author");
         const pages = document.getElementById("book-pages");
         const read = document.getElementById("book-read");
-        console.log(title.value, author.value, pages.value, read.value);
 
         // Book doesn't meet criteria
         if (title.value === "") {
@@ -54,6 +53,7 @@ function createModalEventListeners() {
     })
 }
 
+// Clears the new book form and all associated styles
 function resetBookForm() {
     const newBookForm = document.querySelector("#new-book-form");
     const title = document.getElementById("book-title");
@@ -74,23 +74,30 @@ function createColourEventListeners() {
 
     // Set new read book colour indicator and recolour all books
     newReadColour.addEventListener("change", () => {
-        console.log("Hello");
-        console.log(newReadColour.value);
-        colourSpines(newReadColour, readColour);
-        readColour = newReadColour;
+        colourSpines(newReadColour.value, true);
+        readColour = newReadColour.value;
     })
 
     // Set new unread book colour indicator and recolour all books
     newUnreadColour.addEventListener("change", () => {
-        console.log("Hello");
-        console.log(newUnreadColour.value);
-        colourSpines(newUnreadColour, unreadColour);
-        unreadColour = newUnreadColour;
+        colourSpines(newUnreadColour.value, false);
+        unreadColour = newUnreadColour.value;
     })
 }
 
-function colourSpines(newColour, oldColour) {
-    const spines = document.querySelectorAll(".book-spine");
+function colourSpines(newColour, read) {
+    // const books = document.querySelectorAll(".book-card");
+    for (let book of myLibrary) {
+        if (book.read === read) {
+            console.log(book);
+            let spine = document.getElementById(INDEX_PREFIX + book.index).querySelector(".book-spine");
+            spine.style.backgroundColor = newColour;
+            console.log(spine.style.backgroundColor);
+            console.log(newColour);
+        }
+        // if (book.getAttribute("read"))
+        // console.log(book);
+    }
     // Iterate through list, check if it has old colour, if it does change to the new colour
 }
 
@@ -120,13 +127,11 @@ Book.prototype.info = function() {
 function addBookToLibrary(book) {
     book.index = myLibrary.length;
     myLibrary.push(book);
-    console.log(book.index, book);
 }
 
 /* Loops through each book and displays on the page */
 function displayBooks() {
     const books = document.querySelector(".books");
-    console.log(books);
 
     // Creates a book card for each book
     for (let book of myLibrary) {
@@ -185,7 +190,6 @@ function createBookCard(book) {
 
     // Set's attached book for removal
     deleteBtn.addEventListener("click", () => {
-        console.log(typeof deleteBtn.getAttribute("data-index"));
         deleteBook(parseInt(deleteBtn.getAttribute("data-index")));
     })
 
