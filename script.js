@@ -27,7 +27,7 @@ function createModalEventListeners() {
         const title = document.getElementById("book-title");
         const author = document.getElementById("book-author");
         const pages = document.getElementById("book-pages");
-        const read = document.getElementById("book-read");
+        const read = document.querySelector("input[name='read']:checked");
 
         // Book doesn't meet criteria
         if (title.value === "") {
@@ -45,7 +45,7 @@ function createModalEventListeners() {
             author.classList.remove("error-field");
             pages.classList.remove("error-field");
 
-            addBookToLibrary(new Book(title.value, author.value, pages.value, read.value));
+            addBookToLibrary(new Book(title.value, author.value, pages.value, read.value === "yes"));
             displayBooks();
             resetBookForm();
             addBookModal.close();
@@ -85,20 +85,14 @@ function createColourEventListeners() {
     })
 }
 
+// Change the spine colour of selected subset of books
 function colourSpines(newColour, read) {
-    // const books = document.querySelectorAll(".book-card");
     for (let book of myLibrary) {
         if (book.read === read) {
-            console.log(book);
             let spine = document.getElementById(INDEX_PREFIX + book.index).querySelector(".book-spine");
             spine.style.backgroundColor = newColour;
-            console.log(spine.style.backgroundColor);
-            console.log(newColour);
         }
-        // if (book.getAttribute("read"))
-        // console.log(book);
     }
-    // Iterate through list, check if it has old colour, if it does change to the new colour
 }
 
 // Sets the minimum page number for books in the library

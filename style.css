@@ -230,9 +230,19 @@ input[type="number"]:focus {
     outline: none;
 }
 
+.legend {
+    font-weight: 700;
+}
+
 .check-field {
-    gap: 10px;
+    width: 100%;
+    gap: 100px;
     align-items: center;
+    justify-content: center;
+}
+
+.check-field > div > label {
+    font-weight: 500;
 }
 
 input[type="checkbox"] {

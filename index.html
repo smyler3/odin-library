@@ -26,8 +26,19 @@
                     <input id="book-pages" name="pages" type="number" required>
                 </div>
                 <div class="check-field form-field">
-                    <label for="book-read">Have you read the book?</label>
-                    <input id="book-read" name="read" type="checkbox" required>
+                    <fieldset class="check-field form-field">
+                        <legend class="legend">Have you read this book?</legend>
+
+                        <div>
+                            <label for="book-read">Yes</label>
+                            <input id="book-read" name="read" type="radio" value="yes" checked>
+                        </div>
+
+                        <div>
+                            <label for="book-read">No</label>
+                            <input id="book-read" name="read" type="radio" value="no">
+                        </div>
+                    </fieldset>
                 </div>
             </div>
             <div class="submission-buttons">
