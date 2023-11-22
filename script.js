@@ -3,6 +3,25 @@ const INIT_READ_COLOUR = "#4169E1";
 const INIT_UNREAD_COLOUR = "#BC8F8F";
 const INDEX_PREFIX = "Book-";
 
+/* Object representing a book */
+function Book(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.rendered = false;
+    this.index = bookCount++;
+}
+
+/* Returns a string explaining the book information */
+Book.prototype.info = function() {
+    return (title + " by " + author + ", " + pages + " pages, " + (read ? "already read" : "not yet read"));
+}
+/* Switches the current read status of the book */
+Book.prototype.switchRead = function () {
+    return (this.read = !this.read);
+}
+
 /* Creates event listeners for interacting with the new book modal */
 function createModalEventListeners() {
     const addBookModal = document.querySelector("#new-book-modal");
@@ -53,21 +72,6 @@ function createModalEventListeners() {
     })
 }
 
-/* Clears the new book form and all associated styles */
-function resetBookForm() {
-    const newBookForm = document.querySelector("#new-book-form");
-    const title = document.getElementById("book-title");
-    const author = document.getElementById("book-author");
-    const pages = document.getElementById("book-pages");
-
-    // Removing error indicators
-    title.classList.remove("error-field");
-    author.classList.remove("error-field");
-    pages.classList.remove("error-field");
-    // Clearing form
-    newBookForm.reset();
-}
-
 /* Creates event listeners for changing the spine colours of the book cards */
 function createColourEventListeners() {
     const newReadColour = document.querySelector("#read-colour");
@@ -86,6 +90,21 @@ function createColourEventListeners() {
     })
 }
 
+/* Clears the new book form and all associated styles */
+function resetBookForm() {
+    const newBookForm = document.querySelector("#new-book-form");
+    const title = document.getElementById("book-title");
+    const author = document.getElementById("book-author");
+    const pages = document.getElementById("book-pages");
+
+    // Removing error indicators
+    title.classList.remove("error-field");
+    author.classList.remove("error-field");
+    pages.classList.remove("error-field");
+    // Clearing form
+    newBookForm.reset();
+}
+
 /* Change the spine colour of selected subset of books */
 function colourSpines(newColour, read) {
     for (let book of myLibrary) {
@@ -101,83 +120,6 @@ function setMinPages() {
     const pagesField = document.getElementById("book-pages");
 
     pagesField.setAttribute("min", MIN_PAGE_NUMBER);
-}
-
-/* Object representing a book */
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.rendered = false;
-    this.index = bookCount++;
-}
-
-/* Returns a string explaining the book information */
-Book.prototype.info = function() {
-    return (title + " by " + author + ", " + pages + " pages, " + (read ? "already read" : "not yet read"));
-}
-/* Switches the current read status of the book */
-Book.prototype.switchRead = function () {
-    return (this.read = !this.read);
-}
-
-/* Adds a book to the library */
-function addBookToLibrary(book) {
-    book.index = bookCount;
-    myLibrary.push(book);
-}
-
-/* Loops through each book and displays on the page */
-function displayBooks() {
-    const books = document.querySelector(".books");
-
-    // Creates a book card for each book
-    for (let book of myLibrary) {
-        // Book already on screen
-        if (book.rendered) {
-            continue;
-        }
-        // Book yet to be displayed
-        else {
-            const bookCard = createBookCard(book); 
-            books.appendChild(bookCard);
-            book.rendered = true;
-        }
-    }
-}
-
-/* Deletes a selected book from the library */
-function deleteBook(index) {
-    const idString = INDEX_PREFIX + index;
-    const book = document.getElementById(idString);
-
-    // Searching for book
-    for (let i in myLibrary) {
-        if (myLibrary[i].index === index) {
-            // Re-rendering page
-            myLibrary.splice(i, 1);
-            book.remove();
-            displayBooks();
-            return;
-        }
-    }
-}
-
-/* Toggles the read status of the selected book */
-function toggleBookReadStatus(index) {
-    const idString = INDEX_PREFIX + index;
-    let spine = document.getElementById(idString).querySelector(".book-spine");
-
-    // Searching for book
-    for (let i in myLibrary) {
-        if (myLibrary[i].index === index) {
-            myLibrary[i].switchRead();
-            // Re-colouring the spine
-            spine.style.backgroundColor = (myLibrary[i].read) ? readColour : unreadColour;
-            return;
-        }
-    }
 }
 
 /* Creates and styles the book cards to be displayed on screen */
@@ -238,6 +180,64 @@ function createBookCard(book) {
     card.appendChild(author);
 
     return card;
+}
+
+/* Deletes a selected book from the library */
+function deleteBook(index) {
+    const idString = INDEX_PREFIX + index;
+    const book = document.getElementById(idString);
+
+    // Searching for book
+    for (let i in myLibrary) {
+        if (myLibrary[i].index === index) {
+            // Re-rendering page
+            myLibrary.splice(i, 1);
+            book.remove();
+            displayBooks();
+            return;
+        }
+    }
+}
+
+/* Toggles the read status of the selected book */
+function toggleBookReadStatus(index) {
+    const idString = INDEX_PREFIX + index;
+    let spine = document.getElementById(idString).querySelector(".book-spine");
+
+    // Searching for book
+    for (let i in myLibrary) {
+        if (myLibrary[i].index === index) {
+            myLibrary[i].switchRead();
+            // Re-colouring the spine
+            spine.style.backgroundColor = (myLibrary[i].read) ? readColour : unreadColour;
+            return;
+        }
+    }
+}
+
+/* Adds a book to the library */
+function addBookToLibrary(book) {
+    book.index = bookCount;
+    myLibrary.push(book);
+}
+
+/* Loops through each book and displays on the page */
+function displayBooks() {
+    const books = document.querySelector(".books");
+
+    // Creates a book card for each book
+    for (let book of myLibrary) {
+        // Book already on screen
+        if (book.rendered) {
+            continue;
+        }
+        // Book yet to be displayed
+        else {
+            const bookCard = createBookCard(book); 
+            books.appendChild(bookCard);
+            book.rendered = true;
+        }
+    }
 }
 
 // Setup Functions
