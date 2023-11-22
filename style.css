@@ -115,6 +115,7 @@ input[type="color"] {
     background-color: royalblue;
     border-top-left-radius: 19px;
     border-bottom-left-radius: 19px;
+    border-right: 1px solid #000000;
 }
 
 .spineBtn:hover {
