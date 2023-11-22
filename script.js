@@ -124,7 +124,7 @@ Book.prototype.switchRead = function () {
 
 /* Adds a book to the library */
 function addBookToLibrary(book) {
-    book.index = myLibrary.length;
+    book.index = bookCount;
     myLibrary.push(book);
 }
 
@@ -156,7 +156,7 @@ function deleteBook(index) {
     for (let i in myLibrary) {
         if (myLibrary[i].index === index) {
             // Re-rendering page
-            myLibrary.splice(i, i);
+            myLibrary.splice(i, 1);
             book.remove();
             displayBooks();
             return;
@@ -258,6 +258,3 @@ addBookToLibrary(new Book("The Hobbit", "J.R.R Tolkien", 295, false));
 
 // Display on page
 displayBooks();
-
-myLibrary[0].switchRead();
-myLibrary[0].switchRead();

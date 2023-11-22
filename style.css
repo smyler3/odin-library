@@ -20,8 +20,8 @@ label {
     font-weight: 700;
 }
 
-label {
-    padding-left: 21px;
+legend {
+    cursor: default;
 }
 
 /*
@@ -54,12 +54,12 @@ body {
 
 .colour-legend-card {
     display: grid;
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(2, 300px);
     justify-items: center;
     align-self: center;
     background-color: #ffffff;
     border-radius: 10px;
-    width: 400px;
+    width: 600px;
     box-shadow: 0 10px 15px #00000020;
 } 
 
@@ -71,11 +71,12 @@ body {
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
+    text-align: center;
 }
 
 input[type="color"] {
     height: 30px;
-    width: 150px;
+    width: 250px;
     background-color: #ffffff;
     border: none;
     cursor: pointer;
@@ -220,6 +221,10 @@ input[type="color"] {
 
 .text-field {
     flex-direction: column;
+}
+
+.text-field > label {
+    padding-left: 22px;
 }
 
 input[type="text"],
