@@ -53,7 +53,7 @@ function createModalEventListeners() {
     })
 }
 
-// Clears the new book form and all associated styles
+/* Clears the new book form and all associated styles */
 function resetBookForm() {
     const newBookForm = document.querySelector("#new-book-form");
     const title = document.getElementById("book-title");
@@ -68,6 +68,7 @@ function resetBookForm() {
     newBookForm.reset();
 }
 
+/* Creates event listeners for changing the spine colours of the book cards */
 function createColourEventListeners() {
     const newReadColour = document.querySelector("#read-colour");
     const newUnreadColour = document.querySelector("#unread-colour");
@@ -85,7 +86,7 @@ function createColourEventListeners() {
     })
 }
 
-// Change the spine colour of selected subset of books
+/* Change the spine colour of selected subset of books */
 function colourSpines(newColour, read) {
     for (let book of myLibrary) {
         if (book.read === read) {
@@ -95,7 +96,7 @@ function colourSpines(newColour, read) {
     }
 }
 
-// Sets the minimum page number for books in the library
+/* Sets the minimum page number for books in the library */
 function setMinPages() {
     const pagesField = document.getElementById("book-pages");
 
@@ -115,6 +116,10 @@ function Book(title, author, pages, read) {
 /* Returns a string explaining the book information */
 Book.prototype.info = function() {
     return (title + " by " + author + ", " + pages + " pages, " + (read ? "already read" : "not yet read"));
+}
+/* Switches the current read status of the book */
+Book.prototype.switchRead = function () {
+    return (this.read = !this.read);
 }
 
 /* Adds a book to the library */
@@ -142,7 +147,7 @@ function displayBooks() {
     }
 }
 
-// Deletes a selected book from the library
+/* Deletes a selected book from the library */
 function deleteBook(index) {
     const idString = INDEX_PREFIX + index;
     const book = document.getElementById(idString);
@@ -154,6 +159,22 @@ function deleteBook(index) {
             myLibrary.splice(i, i);
             book.remove();
             displayBooks();
+            return;
+        }
+    }
+}
+
+/* Toggles the read status of the selected book */
+function toggleBookReadStatus(index) {
+    const idString = INDEX_PREFIX + index;
+    let spine = document.getElementById(idString).querySelector(".book-spine");
+
+    // Searching for book
+    for (let i in myLibrary) {
+        if (myLibrary[i].index === index) {
+            myLibrary[i].switchRead();
+            // Re-colouring the spine
+            spine.style.backgroundColor = (myLibrary[i].read) ? readColour : unreadColour;
             return;
         }
     }
@@ -197,8 +218,8 @@ function createBookCard(book) {
     spine.appendChild(readToggleBtn);
 
     // Toggles book's read status
-    readToggleBtn.addEventListener("click", (e) => {
-        console.log(e.target);
+    readToggleBtn.addEventListener("click", () => {
+        toggleBookReadStatus(parseInt(readToggleBtn.getAttribute("data-index")));
     })
 
     // Styling
@@ -237,3 +258,6 @@ addBookToLibrary(new Book("The Hobbit", "J.R.R Tolkien", 295, false));
 
 // Display on page
 displayBooks();
+
+myLibrary[0].switchRead();
+myLibrary[0].switchRead();
