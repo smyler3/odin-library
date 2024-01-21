@@ -4,22 +4,23 @@ const INIT_UNREAD_COLOUR = "#BC8F8F";
 const INDEX_PREFIX = "Book-";
 
 /* Object representing a book */
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.rendered = false;
-    this.index = bookCount++;
-}
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.rendered = false;
+        this.index = bookCount++;
+    }
 
-/* Returns a string explaining the book information */
-Book.prototype.info = function() {
-    return (title + " by " + author + ", " + pages + " pages, " + (read ? "already read" : "not yet read"));
-}
-/* Switches the current read status of the book */
-Book.prototype.switchRead = function () {
-    return (this.read = !this.read);
+    info() {
+        return (title + " by " + author + ", " + pages + " pages, " + (read ? "already read" : "not yet read"));
+    }
+
+    switchRead() {
+        return (this.read = !this.read);
+    }
 }
 
 /* Creates event listeners for interacting with the new book modal */
